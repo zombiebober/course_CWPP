@@ -1,6 +1,6 @@
 {
     "name": "Online shop",
-    "description": "Homework project for Web Architecture course. Licensed by the Geekbrains",
+    "description": "Homework project for Web Architecture course",
     "autoload": {
         "psr-4": {
             "": "src/",
