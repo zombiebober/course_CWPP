@@ -101,6 +101,13 @@ class User
                 'password' => '$2y$10$vQvuFc6vQQyon0IawbmUN.3cPBXmuaZYsVww5csFRLvLCLPTiYwMa', // testss
                 'role' => $test
             ],
+            [
+                'id' => 6,
+                'name' => "student",
+                'login' => 'student',
+                'password' => '123',
+                'role' => $user
+            ]
         ];
 
         if (!count($search)) {

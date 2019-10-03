@@ -8,6 +8,7 @@ use Service\SocialNetwork\ISocialNetwork;
 $body = function () use ($productInfo, $isInBasket, $path) {
     echo  '
         Супер ' . $productInfo->getName() . ' курс всего за ' . $productInfo->getPrice() . ' руб.
+        <br/>'.$productInfo->getDescription().'</br>
         <br/><br/>
         <form method="post">
             <input name="product" type="hidden" value="' . $productInfo->getId() . '" />';

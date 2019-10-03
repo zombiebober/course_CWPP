@@ -18,13 +18,15 @@ $body = function () use ($productList, $path) {
                 <td style="text-align: center">
                     <a href="<?= $path('product_info', ['id' => $product->getId()]) ?>"><?= $product->getName() ?></a>
                     <br /><br />
+                    <?= $product->getDescription()?>
+                    <br /><br />
                     <?= $product->getPrice() ?> руб.
                 </td>
 <?php
                 echo($position + 1) % 3 ? '' : '</tr>';
         ++$position;
     }
-    echo $position % 3 ? str_repeat('<td></td>', 3 - $position) . '</tr>' : ''; ?>
+    //echo $position % 3 ? str_repeat('<td></td>', 3 - $position) . '</tr>' : '';?>
     </table>
 <?php
 };

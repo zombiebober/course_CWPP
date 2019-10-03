@@ -19,6 +19,7 @@ $body = function () use ($productList, $isLogged, $path) {
                 <td><?= $n++ ?>.</td>
                 <td><?= $product->getName() ?></td>
                 <td><?= $product->getPrice() ?> руб</td>
+                <td><?= $product->getDescription() ?></td>
                 <td><input type="button" value="Удалить" /></td>
             </tr>
 <?php
