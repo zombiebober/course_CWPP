@@ -105,7 +105,7 @@ class User
                 'id' => 6,
                 'name' => "student",
                 'login' => 'student',
-                'password' => '123',
+                'password' => '$2y$10$XTMIPBr2DL9gWctkIi7yfu2oEWMRxdwJQvNuG87516xtW3Z3uLsq6',//123
                 'role' => $user
             ]
         ];
