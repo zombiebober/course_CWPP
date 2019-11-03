@@ -6,6 +6,7 @@ namespace Controller;
 
 use Framework\Render;
 use Service\User\Security;
+use Service\User\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -50,5 +51,18 @@ class UserController
         (new Security($request->getSession()))->logout();
 
         return $this->redirect('index');
+    }
+
+    /**
+     * Список всех пользователей
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function listAction(Request $request): Response
+    {
+        $userList = (new User())->getAll();
+
+        return $this->render('user/all_users.html.php', ['userList' => $userList]);
     }
 }

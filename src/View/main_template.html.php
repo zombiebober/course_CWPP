@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>On-line курсы GeekStars | <?= $title ?? '' ?></title>
+    <title>On-line курсы | <?= $title ?? '' ?></title>
 </head>
 <body>
     <table width="100%">
@@ -22,7 +22,11 @@
                                     <tr><td><a href="<?= $path('user_authentication') ?>">Авторизация</a></td></tr>
                                 <?php
 } else {
-        ?>
+        if ($isAdmin) {
+            ?>
+                                         <tr><td><a href="<?= $path('all_users') ?>">Все пользователи</a></td></tr>
+                                         <?php
+        } ?>
                                     <tr><td><a href="<?= $path('logout') ?>">Выход</a></td></tr>
                                 <?php
     } ?>

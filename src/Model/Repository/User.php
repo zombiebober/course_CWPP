@@ -41,6 +41,27 @@ class User
     }
 
     /**
+     * Получаем все продукты
+     *
+     * @return array
+     */
+    public function fetchAll(): array
+    {
+        $userList = [];
+        foreach ($this->getDataFromSource() as $item) {
+            $userList[]= new Entity\User(
+                $item['id'],
+                $item['name'],
+                $item['login'],
+                $item['password'],
+                new Entity\Role($item['role']['id'], $item['role']['title'], $item['role']['role'])
+            );
+        }
+
+        return $userList;
+    }
+
+    /**
      * Фабрика по созданию сущности пользователя
      *
      * @param array $user
@@ -105,7 +126,7 @@ class User
                 'id' => 6,
                 'name' => "student",
                 'login' => 'student',
-                'password' => '$2y$10$XTMIPBr2DL9gWctkIi7yfu2oEWMRxdwJQvNuG87516xtW3Z3uLsq6',//123
+                'password' => '$2y$10$XTMIPBr2DL9gWctkIi7yfu2oEWMRxdwJQvNuG87516xtW3Z3uLsq6', //123
                 'role' => $user
             ]
         ];
