@@ -9,6 +9,7 @@ $body = function () use ($userList, $path) {
                     <li>Name: <?= $user->getName()?></li>
                     <li>Title role: <?= $user->getRole()->getTitle()?></li>
                     <li>Type role: <?= $user->getRole()->getType()?></li>
+                    <li>Discount: <?= $user->getDiscount()->getDiscount()?></li>
                 </ol>
                 <?php
     }
