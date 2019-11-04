@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Service\Product;
 
 use Model;
+use Service\Discount\IDiscount;
 
 class Product
 {
@@ -34,8 +35,23 @@ class Product
         // Применить паттерн Стратегия
         // $sortType === 'price'; // Сортировка по цене
         // $sortType === 'name'; // Сортировка по имени
-
         return $productList;
+    }
+
+    public function calculateAll(string $sortType, IDiscount $discount): array
+    {
+        $productList = $this->getAll($sortType);
+        $result=[];
+        foreach($productList as $key => $product){
+            $result[]= $this->calculate($discount, $product);
+        }
+        return $result;
+    }
+
+    public function calculate(IDiscount $discount, Model\Entity\Product $product):  Model\Entity\Product
+    {
+        return new Model\Entity\Product($product->getId(),$product->getName(),
+            $product->getPrice() - $product->getPrice() * $discount->getDiscount(),$product->getDescription());
     }
 
     /**

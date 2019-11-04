@@ -6,6 +6,7 @@ namespace Controller;
 
 use Framework\Render;
 use Service\Order\Basket;
+use Service\Product\Product;
 use Service\User\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,13 @@ class OrderController
         }
 
         $productList = (new Basket($request->getSession()))->getProductsInfo();
-        $isLogged = (new Security($request->getSession()))->isLogged();
+        $user = new Security($request->getSession());
+        $isLogged = $user->isLogged();
+        if($isLogged){
+            foreach($productList as $key=>$product){
+                $productList[$key] = (new Product())->calculate($user->getUser()->getDiscount(), $product);
+            }
+        }
 
         return $this->render('order/info.html.php', ['productList' => $productList, 'isLogged' => $isLogged]);
     }

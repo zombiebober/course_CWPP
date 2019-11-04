@@ -9,6 +9,7 @@ use Service\Order\Basket;
 use Service\Product\Product;
 use Service\SocialNetwork\ISocialNetwork;
 use Service\SocialNetwork\SocialNetwork;
+use Service\User\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,6 +38,11 @@ class ProductController
             return $this->render('error404.html.php');
         }
 
+        $user = (new Security($request->getSession()));
+        if($user->isLogged())
+        {
+            $productInfo = (new Product())->calculate($user->getUser()->getDiscount(), $productInfo);
+        }
         $isInBasket = $basket->isProductInBasket($productInfo->getId());
 
         return $this->render('product/info.html.php', ['productInfo' => $productInfo, 'isInBasket' => $isInBasket]);
@@ -51,8 +57,13 @@ class ProductController
      */
     public function listAction(Request $request): Response
     {
-        $productList = (new Product())->getAll($request->query->get('sort', ''));
-
+        $user = (new Security($request->getSession()));
+        $productList=[];
+        if(!$user->isLogged()) {
+            $productList = (new Product())->getAll($request->query->get('sort', ''));
+        }else{
+            $productList = (new Product())->calculateAll($request->query->get('sort', ''),$user->getUser()->getDiscount());
+        }
         return $this->render('product/list.html.php', ['productList' => $productList]);
     }
 

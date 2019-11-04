@@ -84,13 +84,16 @@ class Basket
         // Здесь должна быть некоторая логика выбора способа платежа
         $billing = new Card();
 
+
+        $security = new Security($this->session);
+
         // Здесь должна быть некоторая логика получения информации о скидки пользователя
-        $discount = new NullObject();
+        $discount = $security->getUser()->getDiscount();
 
         // Здесь должна быть некоторая логика получения способа уведомления пользователя о покупке
         $communication = new Email();
 
-        $security = new Security($this->session);
+
 
         $this->checkoutProcess($discount, $billing, $security, $communication);
     }
@@ -116,7 +119,7 @@ class Basket
         }
 
         $discount = $discount->getDiscount();
-        $totalPrice = $totalPrice - $totalPrice / 100 * $discount;
+        $totalPrice = $totalPrice - $totalPrice * $discount;
 
         $billing->pay($totalPrice);
 
