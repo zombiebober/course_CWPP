@@ -13,6 +13,9 @@ class StandardDiscount implements IDiscount
      */
     private $discount = 0.01;
 
+    /**
+     * @return float
+     */
     public function getDiscount(): float
     {
         return $this->discount;

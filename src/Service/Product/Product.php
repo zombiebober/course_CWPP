@@ -38,22 +38,6 @@ class Product
         return $productList;
     }
 
-    public function calculateAll(string $sortType, IDiscount $discount): array
-    {
-        $productList = $this->getAll($sortType);
-        $result=[];
-        foreach($productList as $key => $product){
-            $result[]= $this->calculate($discount, $product);
-        }
-        return $result;
-    }
-
-    public function calculate(IDiscount $discount, Model\Entity\Product $product):  Model\Entity\Product
-    {
-        return new Model\Entity\Product($product->getId(),$product->getName(),
-            $product->getPrice() - $product->getPrice() * $discount->getDiscount(),$product->getDescription());
-    }
-
     /**
      * Фабричный метод для репозитория Product
      *

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Controller;
 
 use Framework\Render;
+use Service\Discount\DiscountCalculate;
 use Service\Order\Basket;
 use Service\Product\Product;
 use Service\SocialNetwork\ISocialNetwork;
@@ -39,9 +40,8 @@ class ProductController
         }
 
         $user = (new Security($request->getSession()));
-        if($user->isLogged())
-        {
-            $productInfo = (new Product())->calculate($user->getUser()->getDiscount(), $productInfo);
+        if ($user->isLogged()) {
+            $productInfo = (new DiscountCalculate($user->getUser()->getDiscount()))->calculate($productInfo);
         }
         $isInBasket = $basket->isProductInBasket($productInfo->getId());
 
@@ -58,11 +58,9 @@ class ProductController
     public function listAction(Request $request): Response
     {
         $user = (new Security($request->getSession()));
-        $productList=[];
-        if(!$user->isLogged()) {
-            $productList = (new Product())->getAll($request->query->get('sort', ''));
-        }else{
-            $productList = (new Product())->calculateAll($request->query->get('sort', ''),$user->getUser()->getDiscount());
+        $productList = (new Product())->getAll($request->query->get('sort', ''));
+        if ($user->isLogged()) {
+            $productList = (new DiscountCalculate($user->getUser()->getDiscount()))->calculateAll($productList);
         }
         return $this->render('product/list.html.php', ['productList' => $productList]);
     }

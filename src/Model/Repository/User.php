@@ -71,12 +71,13 @@ class User
     {
         $role = $user['role'];
 
-        if($user['discount'] == self::$advancedDiscount)
+        if ($user['discount'] == self::$advancedDiscount) {
             $discount = new AdvancedDiscount();
-        elseif($user['discount'] == self::$standardDiscount)
+        } elseif ($user['discount'] == self::$standardDiscount) {
             $discount = new StandardDiscount();
-        elseif ($user['discount'] == self::$premiumDiscount)
+        } elseif ($user['discount'] == self::$premiumDiscount) {
             $discount = new PremiumDiscount();
+        }
         return new Entity\User(
             $user['id'],
             $user['name'],

@@ -17,7 +17,7 @@ class User
     {
         $userList = $this->getUserRepository()->fetchAll();
 
-        usort($userList, function (Model\Entity\User $a, Model\Entity\User $b){
+        usort($userList, function (Model\Entity\User $a, Model\Entity\User $b) {
             return $a->getDiscount()->getDiscount() <=> $b->getDiscount()->getDiscount();
         });
 

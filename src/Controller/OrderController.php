@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Controller;
 
 use Framework\Render;
+use Service\Discount\DiscountCalculate;
 use Service\Order\Basket;
 use Service\Product\Product;
 use Service\User\Security;
@@ -30,10 +31,8 @@ class OrderController
         $productList = (new Basket($request->getSession()))->getProductsInfo();
         $user = new Security($request->getSession());
         $isLogged = $user->isLogged();
-        if($isLogged){
-            foreach($productList as $key=>$product){
-                $productList[$key] = (new Product())->calculate($user->getUser()->getDiscount(), $product);
-            }
+        if ($isLogged) {
+            $productList = (new DiscountCalculate($user->getUser()->getDiscount()))->calculateAll($productList);
         }
 
         return $this->render('order/info.html.php', ['productList' => $productList, 'isLogged' => $isLogged]);
