@@ -35,7 +35,7 @@ trait Render
             $parameters['isAuth'] = (new Security(new Session()))->isLogged();
 
             if ($parameters['isAuth']) {
-                $parameters['isAdmin'] = (new Security(new Session()))->getUser()->getRole()->getType() === 'admin';
+                $parameters['isAdmin'] = (new Security(new Session()))->isAdmin();
             }
 
             extract($parameters, EXTR_SKIP);

@@ -40,6 +40,14 @@ class Security implements ISecurity
     }
 
     /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->getUser()->getRole()->getType() === 'admin';
+    }
+
+    /**
      * @inheritdoc
      */
     public function authentication(string $login, string $password): bool
