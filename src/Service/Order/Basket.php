@@ -81,50 +81,16 @@ class Basket
      */
     public function checkout(): void
     {
-        // Здесь должна быть некоторая логика выбора способа платежа
-        $billing = new Card();
-
+        $basketBuilder = new BasketBuilder();
 
         $security = new Security($this->session);
+        $basketBuilder->setSecurity($security)
+            ->setCommunication(new Email())
+            ->setDiscount($security->getUser()->getDiscount())
+            ->setBilling(new Card());
 
-        // Здесь должна быть некоторая логика получения информации о скидки пользователя
-        $discount = $security->getUser()->getDiscount();
-
-        // Здесь должна быть некоторая логика получения способа уведомления пользователя о покупке
-        $communication = new Email();
-
-
-
-        $this->checkoutProcess($discount, $billing, $security, $communication);
-    }
-
-    /**
-     * Проведение всех этапов заказа
-     *
-     * @param IDiscount $discount,
-     * @param IBilling $billing,
-     * @param ISecurity $security,
-     * @param ICommunication $communication
-     * @return void
-     */
-    public function checkoutProcess(
-        IDiscount $discount,
-        IBilling $billing,
-        ISecurity $security,
-        ICommunication $communication
-    ): void {
-        $totalPrice = 0;
-        foreach ($this->getProductsInfo() as $product) {
-            $totalPrice += $product->getPrice();
-        }
-
-        $discount = $discount->getDiscount();
-        $totalPrice = $totalPrice - $totalPrice * $discount;
-
-        $billing->pay($totalPrice);
-
-        $user = $security->getUser();
-        $communication->process($user, 'checkout_template');
+        $checkoutProcess = $basketBuilder->build();
+        $checkoutProcess->checkoutProcess($this->getProductsInfo());
     }
 
     /**

@@ -61,9 +61,11 @@ class UserController
      */
     public function listAction(Request $request): Response
     {
-        $userList = (new User())->getAll();
-        if((new Security($request->getSession()))->isAdmin())
+        if ((new Security($request->getSession()))->isAdmin()) {
+            $userList = (new User())->getAll();
             return $this->render('user/all_users.html.php', ['userList' => $userList]);
-        else return $this->render('error404.html.php');
+        } else {
+            return $this->render('error404.html.php', []);
+        }
     }
 }

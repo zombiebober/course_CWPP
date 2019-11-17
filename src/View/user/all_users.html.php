@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Model\Entity\User[] $userList */
-$body = function () use ($userList, $path) {
+$body = function () use ($userList) {
     foreach ($userList as $key => $user) {
         ?>
                 <ol>
@@ -14,7 +14,6 @@ $body = function () use ($userList, $path) {
                 <?php
     }
 };
-
 
 
 
