@@ -5,8 +5,11 @@ declare(strict_types = 1);
 namespace Controller;
 
 use Framework\Render;
+use Service\Billing\Exception\BillingException;
+use Service\Communication\Exception\CommunicationException;
 use Service\Discount\DiscountCalculate;
 use Service\Order\Basket;
+use Service\Order\FacadeCheckout;
 use Service\Product\Product;
 use Service\User\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,7 +54,7 @@ class OrderController
             return $this->redirect('user_authentication');
         }
 
-        (new Basket($request->getSession()))->checkout();
+        (new FacadeCheckout($request->getSession()))->checkout();
 
         return $this->render('order/checkout.html.php');
     }

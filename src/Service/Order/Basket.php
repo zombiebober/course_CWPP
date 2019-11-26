@@ -74,24 +74,6 @@ class Basket
         return $this->getProductRepository()->search($productIds);
     }
 
-    /**
-     * Оформление заказа
-     *
-     * @return void
-     */
-    public function checkout(): void
-    {
-        $basketBuilder = new BasketBuilder();
-
-        $security = new Security($this->session);
-        $basketBuilder->setSecurity($security)
-            ->setCommunication(new Email())
-            ->setDiscount($security->getUser()->getDiscount())
-            ->setBilling(new Card());
-
-        $checkoutProcess = $basketBuilder->build();
-        $checkoutProcess->checkoutProcess($this->getProductsInfo());
-    }
 
     /**
      * Фабричный метод для репозитория Product
