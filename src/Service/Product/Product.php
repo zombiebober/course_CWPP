@@ -24,17 +24,16 @@ class Product
     /**
      * Получаем все продукты
      *
-     * @param string $sortType
+     * @param ISort $sort
      *
      * @return Model\Entity\Product[]
      */
-    public function getAll(string $sortType): array
+    public function getAll(ISort $sort=null): array
     {
         $productList = $this->getProductRepository()->fetchAll();
-
-        // Применить паттерн Стратегия
-        // $sortType === 'price'; // Сортировка по цене
-        // $sortType === 'name'; // Сортировка по имени
+        if(!is_null($sort)) {
+            $productList = $sort->sort($productList);
+        }
         return $productList;
     }
 
