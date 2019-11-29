@@ -60,13 +60,12 @@ class ProductController
     public function listAction(Request $request): Response
     {
         $user = (new Security($request->getSession()));
-        $sort = $request->query->get('sort','');
-        if($sort === 'price'){
+        $sort = $request->query->get('sort', '');
+        if ($sort === 'price') {
             $productList = (new Product())->getAll(new SortPrice());
-        }else if($sort === 'name'){
+        } elseif ($sort === 'name') {
             $productList = (new Product())->getAll(new SortName());
-        }
-        else{
+        } else {
             $productList = (new Product())->getAll();
         }
 

@@ -31,7 +31,7 @@ class Product
     public function getAll(ISort $sort=null): array
     {
         $productList = $this->getProductRepository()->fetchAll();
-        if(!is_null($sort)) {
+        if (!is_null($sort)) {
             $productList = $sort->sort($productList);
         }
         return $productList;

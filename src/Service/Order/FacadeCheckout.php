@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Service\Order;
 
-
 use Service\Billing\Card;
 use Service\Communication\Email;
 use Service\User\Security;

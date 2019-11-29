@@ -3,7 +3,6 @@
 
 namespace Framework;
 
-
 use Symfony\Component\Routing\RouteCollection;
 
 class RegisterRoutes implements ICommand
@@ -34,7 +33,7 @@ class RegisterRoutes implements ICommand
 
     public function __get($name)
     {
-        if(array_key_exists($name, $this->data)){
+        if (array_key_exists($name, $this->data)) {
             return $this->data[$name];
         }
         $trace = debug_backtrace();
@@ -42,7 +41,8 @@ class RegisterRoutes implements ICommand
             'Неопределенное свойство в __get(): ' . $name .
             ' в файле ' . $trace[0]['file'] .
             ' на строке ' . $trace[0]['line'],
-            E_USER_NOTICE);
+            E_USER_NOTICE
+        );
         return null;
     }
 }

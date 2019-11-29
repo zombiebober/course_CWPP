@@ -3,7 +3,6 @@
 
 namespace Service\Product;
 
-
 class SortName implements ISort
 {
 
@@ -13,8 +12,7 @@ class SortName implements ISort
      */
     public function sort(array $product):array
     {
-        usort($product, function (\Model\Entity\Product $a, \Model\Entity\Product $b)
-        {
+        usort($product, function (\Model\Entity\Product $a, \Model\Entity\Product $b) {
             return $a->getName() <=> $b->getName();
         });
         return $product;

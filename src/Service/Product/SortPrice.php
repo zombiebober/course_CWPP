@@ -3,7 +3,6 @@
 
 namespace Service\Product;
 
-
 class SortPrice implements ISort
 {
     /**
@@ -12,8 +11,7 @@ class SortPrice implements ISort
      */
     public function sort(array $product): array
     {
-        usort($product, function (\Model\Entity\Product $a, \Model\Entity\Product $b)
-        {
+        usort($product, function (\Model\Entity\Product $a, \Model\Entity\Product $b) {
             return $a->getPrice() > $b->getPrice();
         });
 

@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
-
 class RegisterConfigs implements ICommand
 {
     /**
@@ -36,7 +35,7 @@ class RegisterConfigs implements ICommand
 
     public function __get($name)
     {
-        if(array_key_exists($name, $this->data)){
+        if (array_key_exists($name, $this->data)) {
             return $this->data[$name];
         }
         $trace = debug_backtrace();
@@ -44,7 +43,8 @@ class RegisterConfigs implements ICommand
             'Неопределенное свойство в __get(): ' . $name .
             ' в файле ' . $trace[0]['file'] .
             ' на строке ' . $trace[0]['line'],
-            E_USER_NOTICE);
+            E_USER_NOTICE
+        );
         return null;
     }
 }
